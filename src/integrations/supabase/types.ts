@@ -14,7 +14,202 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      claims: {
+        Row: {
+          claimed_at: string
+          id: string
+          lot_id: string
+          maker_id: string
+          notes: string | null
+          picked_up_at: string | null
+          pickup_scheduled_at: string | null
+          return_scheduled_at: string | null
+          returned_at: string | null
+        }
+        Insert: {
+          claimed_at?: string
+          id?: string
+          lot_id: string
+          maker_id: string
+          notes?: string | null
+          picked_up_at?: string | null
+          pickup_scheduled_at?: string | null
+          return_scheduled_at?: string | null
+          returned_at?: string | null
+        }
+        Update: {
+          claimed_at?: string
+          id?: string
+          lot_id?: string
+          maker_id?: string
+          notes?: string | null
+          picked_up_at?: string | null
+          pickup_scheduled_at?: string | null
+          return_scheduled_at?: string | null
+          returned_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "claims_lot_id_fkey"
+            columns: ["lot_id"]
+            isOneToOne: false
+            referencedRelation: "lots"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lots: {
+        Row: {
+          category: string
+          claimed_by: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          estimated_weight_kg: number | null
+          expiry_date: string | null
+          id: string
+          images: string[] | null
+          items_count: number
+          pickup_date: string | null
+          return_date: string | null
+          status: Database["public"]["Enums"]["lot_status"]
+          store_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          claimed_by?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          estimated_weight_kg?: number | null
+          expiry_date?: string | null
+          id?: string
+          images?: string[] | null
+          items_count?: number
+          pickup_date?: string | null
+          return_date?: string | null
+          status?: Database["public"]["Enums"]["lot_status"]
+          store_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          claimed_by?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          estimated_weight_kg?: number | null
+          expiry_date?: string | null
+          id?: string
+          images?: string[] | null
+          items_count?: number
+          pickup_date?: string | null
+          return_date?: string | null
+          status?: Database["public"]["Enums"]["lot_status"]
+          store_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          address: string | null
+          created_at: string
+          full_name: string
+          id: string
+          kyc_verified: boolean | null
+          maker_tier: Database["public"]["Enums"]["maker_tier"] | null
+          phone: string | null
+          rating: number | null
+          role: Database["public"]["Enums"]["user_role"]
+          successful_returns: number | null
+          total_claims: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          full_name: string
+          id?: string
+          kyc_verified?: boolean | null
+          maker_tier?: Database["public"]["Enums"]["maker_tier"] | null
+          phone?: string | null
+          rating?: number | null
+          role?: Database["public"]["Enums"]["user_role"]
+          successful_returns?: number | null
+          total_claims?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          full_name?: string
+          id?: string
+          kyc_verified?: boolean | null
+          maker_tier?: Database["public"]["Enums"]["maker_tier"] | null
+          phone?: string | null
+          rating?: number | null
+          role?: Database["public"]["Enums"]["user_role"]
+          successful_returns?: number | null
+          total_claims?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      returned_products: {
+        Row: {
+          approved_for_sale: boolean | null
+          claim_id: string
+          created_at: string
+          description: string | null
+          estimated_value: number | null
+          id: string
+          images: string[] | null
+          product_name: string
+          review_status: string | null
+          updated_at: string
+        }
+        Insert: {
+          approved_for_sale?: boolean | null
+          claim_id: string
+          created_at?: string
+          description?: string | null
+          estimated_value?: number | null
+          id?: string
+          images?: string[] | null
+          product_name: string
+          review_status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          approved_for_sale?: boolean | null
+          claim_id?: string
+          created_at?: string
+          description?: string | null
+          estimated_value?: number | null
+          id?: string
+          images?: string[] | null
+          product_name?: string
+          review_status?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "returned_products_claim_id_fkey"
+            columns: ["claim_id"]
+            isOneToOne: false
+            referencedRelation: "claims"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +218,14 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      lot_status:
+        | "available"
+        | "claimed"
+        | "picked_up"
+        | "returned"
+        | "completed"
+      maker_tier: "bronze" | "silver" | "gold" | "platinum"
+      user_role: "store_staff" | "maker" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +352,16 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      lot_status: [
+        "available",
+        "claimed",
+        "picked_up",
+        "returned",
+        "completed",
+      ],
+      maker_tier: ["bronze", "silver", "gold", "platinum"],
+      user_role: ["store_staff", "maker", "admin"],
+    },
   },
 } as const
