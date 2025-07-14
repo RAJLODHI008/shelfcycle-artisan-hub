@@ -16,7 +16,7 @@ export type Database = {
     Tables: {
       claims: {
         Row: {
-          claimed_at: string
+          claimed_at: string | null
           id: string
           lot_id: string
           maker_id: string
@@ -27,7 +27,7 @@ export type Database = {
           returned_at: string | null
         }
         Insert: {
-          claimed_at?: string
+          claimed_at?: string | null
           id?: string
           lot_id: string
           maker_id: string
@@ -38,7 +38,7 @@ export type Database = {
           returned_at?: string | null
         }
         Update: {
-          claimed_at?: string
+          claimed_at?: string | null
           id?: string
           lot_id?: string
           maker_id?: string
@@ -62,7 +62,7 @@ export type Database = {
         Row: {
           category: string
           claimed_by: string | null
-          created_at: string
+          created_at: string | null
           created_by: string | null
           description: string | null
           estimated_weight_kg: number | null
@@ -75,12 +75,12 @@ export type Database = {
           status: Database["public"]["Enums"]["lot_status"]
           store_id: string
           title: string
-          updated_at: string
+          updated_at: string | null
         }
         Insert: {
           category: string
           claimed_by?: string | null
-          created_at?: string
+          created_at?: string | null
           created_by?: string | null
           description?: string | null
           estimated_weight_kg?: number | null
@@ -93,12 +93,12 @@ export type Database = {
           status?: Database["public"]["Enums"]["lot_status"]
           store_id: string
           title: string
-          updated_at?: string
+          updated_at?: string | null
         }
         Update: {
           category?: string
           claimed_by?: string | null
-          created_at?: string
+          created_at?: string | null
           created_by?: string | null
           description?: string | null
           estimated_weight_kg?: number | null
@@ -111,14 +111,14 @@ export type Database = {
           status?: Database["public"]["Enums"]["lot_status"]
           store_id?: string
           title?: string
-          updated_at?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
       profiles: {
         Row: {
           address: string | null
-          created_at: string
+          created_at: string | null
           full_name: string
           id: string
           kyc_verified: boolean | null
@@ -128,12 +128,12 @@ export type Database = {
           role: Database["public"]["Enums"]["user_role"]
           successful_returns: number | null
           total_claims: number | null
-          updated_at: string
+          updated_at: string | null
           user_id: string
         }
         Insert: {
           address?: string | null
-          created_at?: string
+          created_at?: string | null
           full_name: string
           id?: string
           kyc_verified?: boolean | null
@@ -143,12 +143,12 @@ export type Database = {
           role?: Database["public"]["Enums"]["user_role"]
           successful_returns?: number | null
           total_claims?: number | null
-          updated_at?: string
+          updated_at?: string | null
           user_id: string
         }
         Update: {
           address?: string | null
-          created_at?: string
+          created_at?: string | null
           full_name?: string
           id?: string
           kyc_verified?: boolean | null
@@ -158,7 +158,7 @@ export type Database = {
           role?: Database["public"]["Enums"]["user_role"]
           successful_returns?: number | null
           total_claims?: number | null
-          updated_at?: string
+          updated_at?: string | null
           user_id?: string
         }
         Relationships: []
@@ -167,38 +167,38 @@ export type Database = {
         Row: {
           approved_for_sale: boolean | null
           claim_id: string
-          created_at: string
+          created_at: string | null
           description: string | null
           estimated_value: number | null
           id: string
           images: string[] | null
           product_name: string
           review_status: string | null
-          updated_at: string
+          updated_at: string | null
         }
         Insert: {
           approved_for_sale?: boolean | null
           claim_id: string
-          created_at?: string
+          created_at?: string | null
           description?: string | null
           estimated_value?: number | null
           id?: string
           images?: string[] | null
           product_name: string
           review_status?: string | null
-          updated_at?: string
+          updated_at?: string | null
         }
         Update: {
           approved_for_sale?: boolean | null
           claim_id?: string
-          created_at?: string
+          created_at?: string | null
           description?: string | null
           estimated_value?: number | null
           id?: string
           images?: string[] | null
           product_name?: string
           review_status?: string | null
-          updated_at?: string
+          updated_at?: string | null
         }
         Relationships: [
           {
